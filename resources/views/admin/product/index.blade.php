@@ -56,10 +56,11 @@
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->price }}</td>
-                    <td>{{ $item->category!=null ? item->category->name : '' }}</td>
+                    <td>{{ $item->category!=null ? $item->category->name : '' }}</td>
                     <td>
                       @if ($item->image!=null)
-                      <img src="{{ asset('image/' . $item->image) }}" alt="">
+                      <img src="{{ asset('images/' . $item->image) }}" alt="" 
+                            style="width:200px; height:auto;"/>
                       @endif
                     </td>
                     <td class="project-actions text-right">
@@ -68,7 +69,7 @@
                             </i>
                             View
                         </a>
-                        <a class="btn btn-info btn-sm" href="#">
+                        <a class="btn btn-info btn-sm" href="{{ Route('product.edit', $item->id) }}">
                             <i class="fas fa-pencil-alt">
                             </i>
                             Edit
