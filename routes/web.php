@@ -10,4 +10,10 @@ Route::get('/', function () {
 
 Route::get('/admin', [DashboardController::class, 'home'])->name('admin');
 
+Route::get('/login', [DashboardController::class, 'login'])->name('login');
+
+Route::post('/login', [DashboardController::class, 'processLogin'])
+                    ->name('processLogin');
+
+
 Route::resource('/product', ProductController::class);
