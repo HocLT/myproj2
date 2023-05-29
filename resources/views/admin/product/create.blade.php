@@ -13,7 +13,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ Route('admin') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ Route('product.index') }}">Products</a></li>
+            <li class="breadcrumb-item"><a href="{{ Route('admin.product.index') }}">Products</a></li>
             <li class="breadcrumb-item active">Create New Product</li>
           </ol>
         </div>
@@ -23,7 +23,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <form action="{{ Route('product.store') }}" class="row" method="post" 
+    <form action="{{ Route('admin.product.store') }}" class="row" method="post" 
                         enctype="multipart/form-data">
       @csrf
       <div class="col-md-12">

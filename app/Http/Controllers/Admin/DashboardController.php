@@ -48,6 +48,26 @@ class DashboardController extends Controller
 
     public function processLogin(Request $request)
     {
-        return redirect()->route('admin');
+        $email = $request->email;
+        $pwd = $request->password;
+
+        $credentials = [
+            'email'    => $email,
+            'password' => $pwd,
+        ];
+        
+        $user = \Sentinel::authenticate($credentials);
+        if ($user != null) {
+            return redirect()->route('admin');
+        } else {
+            $err = 'Invalide username or password';
+            return view('admin.login', compact('err'));
+        }
+    }
+
+    public function logout()
+    {
+        \Sentinel::logout();
+        return redirect()->route('login');
     }
 }
