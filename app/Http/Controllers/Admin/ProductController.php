@@ -44,7 +44,8 @@ class ProductController extends Controller
             $ext = $file->getClientOriginalExtension();
             if($ext != 'jpg' && $ext != 'png' && $ext !='jpeg')
             {
-                return view('admin.product.create')
+                $cates = Category::all();
+                return view('admin.product.cr eate', compact('cates'))
                     ->with('error','Bạn chỉ được chọn file có đuôi jpg,png,jpeg');
             }
             $imgName = $file->getClientOriginalName();
@@ -55,7 +56,7 @@ class ProductController extends Controller
 
         $prods['image'] = $imgName;
         Product::create($prods);
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -91,7 +92,8 @@ class ProductController extends Controller
             $ext = $file->getClientOriginalExtension();
             if($ext != 'jpg' && $ext != 'png' && $ext !='jpeg')
             {
-                return view('admin.product.create')
+                $cates = Category::all();
+                return view('admin.product.create', compact('cates'))
                     ->with('error','Bạn chỉ được chọn file có đuôi jpg,png,jpeg');
             }
             $imgName = $file->getClientOriginalName();
@@ -102,7 +104,7 @@ class ProductController extends Controller
 
         $prods['image'] = $imgName;
         $product->update($prods);
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 
     /**

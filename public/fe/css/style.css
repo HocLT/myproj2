@@ -3849,3 +3849,8 @@ ol {
 		height: 250px;
 	}
 }
+
+.product__item__text+h5 a {
+	color: #0d0d0d;
+	font-weight: 700;
+}

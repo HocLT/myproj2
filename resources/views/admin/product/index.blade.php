@@ -69,7 +69,7 @@
                             </i>
                             View
                         </a>
-                        <a class="btn btn-info btn-sm" href="{{ Route('product.edit', $item->id) }}">
+                        <a class="btn btn-info btn-sm" href="{{ Route('admin.product.edit', $item->id) }}">
                             <i class="fas fa-pencil-alt">
                             </i>
                             Edit
