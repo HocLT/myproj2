@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FE;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\CartItem;
 
 class HomeController extends Controller
 {
@@ -48,5 +49,44 @@ class HomeController extends Controller
         // hàm where() sẽ trả về 1 mảng
         $prod = Product::where('slug', $slug)->first();
         return view('fe.product_details', compact('prod'));
+    }
+
+    public function addCart(Request $request) 
+    {
+        try {
+            $pid = $request->pid;
+            $quantity = $request->quantity;
+            $cart = []; // khai báo biến lưu cart
+            // kiểm tra session
+            if ($request->session()->has('cart')) {
+                $cart = $request->session()->get('cart');
+            }
+
+            $prod = Product::find($pid);    // tìm product theo id
+            // tạo đối tượng CartItem
+            $item = new CartItem($prod, $quantity);
+
+            // add item to cart
+            $cart[] = $item;
+            // lưu lại thông tin vào session
+            $request->session()->put('cart', $cart);
+            return 1;
+        } catch (\Exception $e) {
+            return 0;   // nên trả về mã 404, hiện tại vẫn trả về mã 200
+        }
+    }
+
+    public function clearCart(Request $request)
+    {
+        if ($request->session()->has('cart')) {
+            $request->session()->forget('cart');
+        }
+    }
+
+    public function viewCart(Request $request)
+    {
+        if ($request->session()->has('cart')) {
+            dd($request->session()->get('cart'));
+        }
     }
 }

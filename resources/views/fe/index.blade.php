@@ -25,3 +25,27 @@
 @include('fe.index.latest_news')
 <!-- Latest Blog Section End -->
 @endsection
+
+@section('myjs')
+<script>
+    $('.product__item__text a').click(function(e) {
+        e.preventDefault(); // huỷ tác dụng thẻ a
+        let pid = $(this).data('pid');
+        let quantity = 1;
+        //alert(quantity);
+        const url = "{{ Route('addCart') }}";
+        $.ajax({
+            url: url,
+            method: 'post',
+            data: {
+                pid: pid,
+                quantity: quantity,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(data) {
+                alert("Add item to cart successfully.");
+            }
+        });
+    });
+</script>
+@endsection

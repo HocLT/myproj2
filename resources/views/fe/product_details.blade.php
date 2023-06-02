@@ -94,7 +94,7 @@
                                   <input type="text" value="1">
                               </div>
                           </div>
-                          <a href="#" class="primary-btn">add to cart</a>
+                          <a href="#" class="primary-btn" data-pid="{{ $prod->id }}">add to cart</a>
                       </div>
                       <div class="product__details__btns__option">
                           <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
@@ -388,4 +388,28 @@
   </div>
 </section>
 <!-- Related Section End -->
+@endsection
+
+@section('myjs')
+<script>
+    $('.product__details__cart__option a').click(function(e) {
+        e.preventDefault(); // huỷ tác dụng thẻ a
+        let pid = $(this).data('pid');
+        let quantity = $('.product__details__cart__option .pro-qty input').val();
+        //alert(quantity);
+        const url = "{{ Route('addCart') }}";
+        $.ajax({
+            url: url,
+            method: 'post',
+            data: {
+                pid: pid,
+                quantity: quantity,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(data) {
+                alert("Add item to cart successfully.");
+            }
+        });
+    });
+</script>
 @endsection

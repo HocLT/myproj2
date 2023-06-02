@@ -18,6 +18,13 @@ Route::post('/login', [DashboardController::class, 'processLogin'])
 
 Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');
 
+Route::post('/add-cart', [HomeController::class, 'addCart'])->name('addCart');
+
+Route::get('/clear-cart', [HomeController::class, 'clearCart'])->name('clearCart');
+
+Route::get('/view-cart', [HomeController::class, 'viewCart'])->name('viewCart');
+
+
 Route::group(['middleware'=>'islogin'], function() {
 
     Route::get('/admin', [DashboardController::class, 'home'])->name('admin');
