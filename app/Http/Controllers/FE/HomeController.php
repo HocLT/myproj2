@@ -85,8 +85,25 @@ class HomeController extends Controller
 
     public function viewCart(Request $request)
     {
-        if ($request->session()->has('cart')) {
-            dd($request->session()->get('cart'));
+        return view("fe.view_cart");
+        // if ($request->session()->has('cart')) {
+        //     dd($request->session()->get('cart'));
+        // }
+    }
+
+    public function updateCart(Request $request)
+    {
+        $pids = $request->pids;
+        $quantities = $request->quantities;
+        $cart = $request->session()->get('cart');
+        for ($i = 0; $i < count($pids); $i++) {
+            foreach ($cart as $item) {
+                if ($item->product->id == $pids[$i]) {
+                    $item->quantity = $quantities[$i];
+                    break;
+                }
+            }
         }
+        $request->session()->put('cart', $cart);
     }
 }

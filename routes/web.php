@@ -24,6 +24,7 @@ Route::get('/clear-cart', [HomeController::class, 'clearCart'])->name('clearCart
 
 Route::get('/view-cart', [HomeController::class, 'viewCart'])->name('viewCart');
 
+Route::post('/update-cart', [HomeController::class, 'updateCart'])->name('updateCart');
 
 Route::group(['middleware'=>'islogin'], function() {
 
