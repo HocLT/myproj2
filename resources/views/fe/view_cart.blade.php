@@ -63,7 +63,7 @@
                                 @php
                                 $total+=$item->product->price * $item->quantity;
                                 @endphp
-                                <td class="cart__close"><i class="fa fa-close"></i></td>
+                                <td class="cart__close"><a href="#" data-pid="{{ $item->product->id }}"><i class="fa fa-close"></i></a></td>
                             </tr>
                             @endforeach
                           @endif  
@@ -97,7 +97,7 @@
                         <li>Subtotal <span>{{ $total }} đ</span></li>
                         <li>Total <span>{{ $total }} đ</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">Proceed to checkout</a>
+                    <a href="{{ Route('checkout') }}" class="primary-btn">Proceed to checkout</a>
                 </div>
             </div>
         </div>
@@ -117,18 +117,36 @@ $('.continue__btn.update__btn').click(function(e) {
     quantities.push($(value).val());
   });
   const url = "{{ Route('updateCart') }}";
-        $.ajax({
-            url: url,
-            method: 'post',
-            data: {
-                pids: pids,
-                quantities: quantities,
-                _token: "{{ csrf_token() }}"
-            },
-            success: function(data) {
-              location.reload();  // reload lại trang
-            }
-        });
+    $.ajax({
+        url: url,
+        method: 'post',
+        data: {
+            pids: pids,
+            quantities: quantities,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function(data) {
+            location.reload();  // reload lại trang
+        }
+    });
+});
+
+$('.cart__close a').click(function(e) {
+    e.preventDefault();
+    const pid = $(this).data('pid');
+
+    const url = "{{ Route('removeCartItem') }}";
+    $.ajax({
+        url: url,
+        method: 'post',
+        data: {
+            pid: pid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function(data) {
+            location.reload();  // reload lại trang
+        }
+    });
 });
 </script>
 

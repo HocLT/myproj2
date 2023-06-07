@@ -26,6 +26,13 @@ Route::get('/view-cart', [HomeController::class, 'viewCart'])->name('viewCart');
 
 Route::post('/update-cart', [HomeController::class, 'updateCart'])->name('updateCart');
 
+Route::post('/remove-cart-item', [HomeController::class, 'removeCartItem'])
+            ->name('removeCartItem');
+
+Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+
+Route::post('/save-cart', [HomeController::class, 'saveCart'])->name('saveCart');
+
 Route::group(['middleware'=>'islogin'], function() {
 
     Route::get('/admin', [DashboardController::class, 'home'])->name('admin');
